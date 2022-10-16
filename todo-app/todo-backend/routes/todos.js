@@ -1,3 +1,4 @@
+const redis = require('redis')
 const express = require('express');
 const { Todo } = require('../mongo')
 const router = express.Router();
@@ -47,7 +48,7 @@ singleRouter.put('/', async (req, res) => {
   }
   const todo = await Todo.findByIdAndUpdate(req.todo.id, updatedTodo, {new: true})
   res.send(todo)
-});
+  });
 
 router.use('/:id', findByIdMiddleware, singleRouter)
 
