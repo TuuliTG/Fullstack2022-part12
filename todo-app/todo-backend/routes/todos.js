@@ -1,5 +1,5 @@
-const redis = require('redis')
 const express = require('express');
+const {getAsync, setAsync} = require('../redis')
 const { Todo } = require('../mongo')
 const router = express.Router();
 
@@ -15,6 +15,9 @@ router.post('/', async (req, res) => {
     text: req.body.text,
     done: false
   })
+  const value = await getAsync('todoCount');
+  const nextValue = value ? Number(value) + 1 : 1;
+  await setAsync('todoCount', nextValue);
   res.send(todo);
 });
 
