@@ -1,0 +1,41 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 3456:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: ecom_db
+    volumes: 
+      - ./ecom-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./ecom-backend/mongo_data:/data/db
+  ecom-backend:
+    image: ecom-backend
+    build:
+      context: ./ecom-backend/ # The context will pick this directory as the "build context"
+      dockerfile: Dockerfile # This will simply tell which dockerfile to read
+    volumes:
+      - ./ecom-backend:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+    environment:
+      - MONGO_URL=mongodb://tg_tuuli:1Qazxsw2@mongo:27017/ecom_db
+  ecom-frontend:
+    image: ecom-frontend
+    build:
+      context: ./ecom-frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./ecom-frontend/:/usr/src/app
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080/api
+    container_name: ecom-frontend
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - ecom-frontend
+      - ecom-backend

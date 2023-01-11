@@ -4,9 +4,12 @@ import storage from 'redux-persist/lib/storage'
 
 import { combineReducers } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
+import productReducer from './reducers/product'
+import shoppingCartReducer from './reducers/shoppingCart'
 
 const rootReducer = combineReducers({
-  
+  products: productReducer,
+  shoppingCart: shoppingCartReducer
 })
 
 const persistConfig = {

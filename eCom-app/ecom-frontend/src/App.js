@@ -1,13 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-
-const FrontPage = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
-}
+import FrontPage from './components/frontPage'
 
 const Products = () => {
   return (

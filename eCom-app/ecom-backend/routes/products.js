@@ -3,25 +3,25 @@ const express = require('express');
 const { Product } = require('../mongo')
 const router = express.Router();
 
-/* GET todos listing. */
+/* GET products listing. */
 router.get('/', async (_, res) => {
   const products = await Product.find({})
   res.send(products);
 });
 
 /* POST todo to listing. */
-/*
-router.post('/', async (req, res) => {
-  const todo = await Todo.create({
-    text: req.body.text,
-    done: false
-  })
-  const value = await getAsync('todoCount');
-  const nextValue = value ? Number(value) + 1 : 1;
-  await setAsync('todoCount', nextValue);
-  res.send(todo);
-});
 
+router.post('/', async (req, res) => {
+  const product = await Product.create({
+    name: req.body.name,
+    price: req.body.price
+  })
+  //const value = await getAsync('productCount');
+  //const nextValue = value ? Number(value) + 1 : 1;
+  //await setAsync('todoCount', nextValue);
+  res.send(product);
+});
+/*
 const singleRouter = express.Router();
 
 const findByIdMiddleware = async (req, res, next) => {

@@ -11,5 +11,7 @@ db.createUser({
   
   db.createCollection('products');
   
-  db.products.insert({ name: 'Apple', price: 0.7 });
-  db.products.insert({ name: 'Milk', price: 1.2 });
+  db.products.insert({ name: 'Apple', price: 0.70 });
+  db.products.insert({ name: 'Milk', price: 1.20 });
+  db.products.insert({ name: 'Bread', price: 2.50 });
+  db.products.insert({ name: 'Cheese', price: 5.90 });
